@@ -1,3 +1,13 @@
+/*iii) Write a program to print the below pattern:*/
+
+          // \*****/
+          // *\***/*
+          // **\*/**
+          // ***/***
+          // **/*\**
+          // */***\*
+          // /*****\
+
 function patternNum() {
     let n =7;
     let string = "";
