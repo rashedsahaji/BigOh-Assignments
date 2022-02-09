@@ -44,6 +44,15 @@ let board = [
 ,[".",".",".",".","8",".",".","7","9"]
 ];
 
+function search(array,element){
+    for(let i=0; i<array.length;i++){
+        if(array[i]==element){
+            return true;
+        }
+    }
+    return false;
+}
+
 function isValidSudoku(Sudoku){
     let rows =[];
     let cols = [];
@@ -61,13 +70,13 @@ function isValidSudoku(Sudoku){
             let cellValue = Sudoku[i][j];
 
             if(cellValue !== '.'){
-                if(rows[i].includes(cellValue)){
+                if(search(rows[i],cellValue)){
                     return false
                 }else{
                     rows[i].push(Sudoku[i][j]);
                 }
 
-                if(cols[j].includes(cellValue)){
+                if(search(cols[j],cellValue)){
                     return false;
                 }else{
                     cols[j].push(Sudoku[i][j]);
@@ -75,7 +84,7 @@ function isValidSudoku(Sudoku){
 
                 let gridIndex = Math.floor((i/3))*3+ Math.floor(j/3);
 
-                if(boxes[gridIndex].includes(cellValue)){
+                if(search(boxes[gridIndex],cellValue)){
                     return false;
                 }else{
                     boxes[gridIndex].push(cellValue);
