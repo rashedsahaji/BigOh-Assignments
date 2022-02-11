@@ -72,10 +72,41 @@ class StringUtils{
             sr += temp;
         }
         return sr;
+    }
+    static vowelReverse(s){
+        let temp = [];
+        for(let i=0;i<s.str.length;i++){
+            temp[i]=s.str.charAt(i);
+        }
 
+        let start = 0;
+        let end = temp.length-1;
+
+
+        while(start < end){
+            if(temp[start]!='a'||temp[start]!='e'||temp[start]!='i'||temp[start]!='o'||temp[start]!='u'||
+            temp[end]=='a'||temp[end]=='e'||temp[end]=='i'||temp[end]=='o'||temp[end]=='u'){
+                start++;
+                end = end;
+            }
+            if(temp[start]=='a'||temp[start]=='e'||temp[start]=='i'||temp[start]=='o'||temp[start]=='u'||
+            temp[end]!='a'||temp[end]!='e'||temp[end]!='i'||temp[end]!='o'||temp[end]!='u'){
+                end--;
+                start=start;
+            }
+            if(temp[start]=='a'||temp[start]=='e'||temp[start]=='i'||temp[start]=='o'||temp[start]=='u'||
+            temp[end]=='a'||temp[end]=='e'||temp[end]=='i'||temp[end]=='o'||temp[end]=='u'){
+                let x = temp[start];
+                temp[start]=temp[end];
+                temp[end]=x;
+                start++;
+                end--;
+            }
+            return temp;
+        }
     }
 }
 const pattern = /ed$/gi;
-const result = new StringUtils('rashed');
+const result = new StringUtils('rashed',pattern,2,5);
 
-console.log(StringUtils.reverse(result));
+console.log(StringUtils.vowelReverse(result));
