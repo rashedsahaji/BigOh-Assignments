@@ -17,7 +17,9 @@ function substringRepeatCheck(s){
         for(let j=i; j<s.length;j++){
             let subString = s.substring(i,j+1);
             if(isUnique(subString)){
-                maxLength = Math.max(maxLength,subString.length);
+                if(maxLength < subString.length){
+                    maxLength = subString.length;
+                }
             }
         }
     }

@@ -65,9 +65,17 @@ class StringUtils{
         return true;
     }
 
-    
+    static reverse(s){
+        let sr = " "+s.str+" ";
+        for(let i=sr.length-1;i>0;i--){
+            let temp = sr[i];
+            sr += temp;
+        }
+        return sr;
+
+    }
 }
 const pattern = /ed$/gi;
-const result = new StringUtils('rashed12');
+const result = new StringUtils('rashed');
 
-console.log(StringUtils.allWordsContainsChar(result));
+console.log(StringUtils.reverse(result));

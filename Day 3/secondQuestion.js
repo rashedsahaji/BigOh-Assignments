@@ -1,12 +1,12 @@
 let board = [
-    ["5","3",".",".","7",".",".","."]
-   ,["6",".",".","1","9","5",".","."]
-   ,[".","9","8",".",".",".",".","6"]
-   ,["8",".",".",".","6",".",".","."]
-   ,["4",".",".","8",".","3",".","."]
-   ,["7",".",".",".","2",".",".","."]
-   ,[".","6",".",".",".",".","2","8"]
-   ,[".",".",".","4","1","9",".","."]
+    [".",".",".",".","Camel",".",".","."]
+   ,["King",".",".",".",".",".",".","."]
+   ,[".",".",".",".",".",".",".","."]
+   ,[".",".",".",".",".",".",".","."]
+   ,[".",".",".",".",".",".",".","."]
+   ,[".",".",".",".",".",".",".","."]
+   ,[".",".",".",".",".",".",".","."]
+   ,[".",".",".",".",".",".",".","."]
    ];
 
 function isKingSafe(chessBoard){
@@ -28,7 +28,7 @@ function camel(chessBoard,i,j){
             return true;
         }
 
-        if(chessBoard[i+moves][j] !== 0){
+        if(chessBoard[i+moves][j] !== '.'){
             break;
         }
     }
@@ -38,7 +38,7 @@ function camel(chessBoard,i,j){
       if (chessBoard[i + moves][j] == 'Camel'){
         return true;
       }
-      if (chessBoard[i + moves][j] !== 0){
+      if (chessBoard[i + moves][j] !== '.'){
           break;
       }
     }
@@ -49,7 +49,7 @@ function camel(chessBoard,i,j){
       if (chessBoard[i][j + moves] == 'Camel'){
         return true;
       }
-      if (chessBoard[i][j + moves] !== 0){
+      if (chessBoard[i][j + moves] !== '.'){
           break;
       }
     }
@@ -60,7 +60,7 @@ function camel(chessBoard,i,j){
       if (chessBoard[i][j + moves] == 'Camel'){
           return true;
       }
-      if (chessBoard[i][j + moves] !== 0){
+      if (chessBoard[i][j + moves] !== '.'){
           break;
       }
     }
