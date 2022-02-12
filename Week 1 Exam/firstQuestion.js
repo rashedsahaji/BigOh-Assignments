@@ -1,8 +1,12 @@
 let firstString = "AB";
-let secondString = "CD";
+let secondString = "C";
+let temp = firstString+secondString;
 
-let result = ""+firstString+secondString;
+let result = [];
+let len = result.length;
 
-for(let i=0; i<result.length;i++){
-    
+for(let i=0;i<temp.length;i++){
+    result.push(temp[i]);
 }
+
+//We need to apply recursion
