@@ -31,4 +31,4 @@ function prime(number){
     }
     return result;
 }
-prime(100);
+console.log(prime(100));
