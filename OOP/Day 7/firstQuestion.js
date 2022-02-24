@@ -143,12 +143,17 @@ contact.aboutMe();
 contact.postStatus("text", "posted text status");
 contact.postStatus("video", "posted video status");
 contact.postStatus("image", "posted image");
-contact.viewStatus();
 
 let contact1 = new MyStatus();
 contact1.createUser("Asif", 123456789);
-console.log("\n");
 contact1.aboutMe();
+contact1.postStatus("text", "posted text status");
+contact1.postStatus("video", "posted video status");
+contact1.postStatus("image", "posted image");
+
+let allStatus = new ViewStatus();
+let cont = [contact,contact1];
+allStatus.viewAllStatus(cont);
 
 //Default first messege
 contact.send(contact1,"text", "hello", contact.name);
