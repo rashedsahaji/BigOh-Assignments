@@ -139,7 +139,7 @@ class Conatact{
         if(this.imageBased.isNull() != null && this.imageBased.type == "image"){
             this.imageBased.getValue();
         };
-        if(this.videoBased.isNull != null && this.videoBased.type == "video"){
+        if(this.videoBased.isNull() != null && this.videoBased.type == "video"){
             this.videoBased.getValue();
         };
     }
