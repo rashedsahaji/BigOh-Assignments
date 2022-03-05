@@ -3,164 +3,123 @@ class Chat {
         this.type_;
         this.value;
         this.senderID;
+        this.chatBox=[];
     }
     setChat(type_, value, senderID) {
         this.type_ = type_;
         this.value = value;
         this.senderID = senderID;
+        this.chatBox.push(`${this.type_} : ${this.value} by ${this.senderID}`)
     }
 }
 
-class showInbox extends Chat {
-    getInbox() {
-        console.log(`${this.type_} : ${this.value} by ${this.senderID}`);
+class SendMessege extends Chat {
+    messege(receiver, type_, value, sender) {
+            if(type_ === "image" || type_ === "video" || type_ === "audio" || type_ === "text"){
+                receiver.inbox.setChat(type_, value, sender);
+            }
+            else{
+                receiver.inbox.setChat("Unsupported", "messege send", sender);
+            }
     }
 }
-class TextBased extends showInbox {
+
+class showInbox extends Chat{
+    getInbox() {
+        if(this.chatBox.length > 0){
+            for (const iterator of this.chatBox) {
+                console.log(iterator);
+            }
+        }
+        else{
+            console.log("Inbox is empty");
+        }
+    }
 }
-class AudioBased extends showInbox {
-}
-class VideoBased extends showInbox {
-}
-class ImageBased extends showInbox {
+class CleanInbox extends Chat{
+    deleteAllChat(){
+        this.chatBox = [];
+        console.log("Chat history deleted");
+    }
 }
 
 class Status {
     constructor() {
         this.type_;
         this.value;
+        this.storesStatus=[];
     }
     setStatus(type_, value) {
         this.type_ = type_;
         this.value = value;
-    }
-}
-class Image_ extends Status {
-}
-class Video_ extends Status {
-}
-class Text_ extends Status {
-}
-
-class Contacts {
-    constructor() {
-        this.name;
-        this.phNumber;
-        //Status
-        this.image = new Image_;
-        this.text = new Text_;
-        this.video = new Video_;
-        //Chats
-        this.textBased = new TextBased();
-        this.videoBased = new VideoBased();
-        this.audioBased = new AudioBased();
-        this.imageBased = new ImageBased();
-    }
-
-    createUser(name, phNumber) {
-        this.name = name;
-        this.phNumber = phNumber;
+        this.storesStatus.push(`${this.type_} : ${this.value}`);
     }
 }
 
-class AboutMe extends Contacts {
-    aboutMe() {
-        console.log(`My name is ${this.name}, Phone Number: ${this.phNumber}`);
-    }
-}
-
-class SendMessege extends AboutMe {
-    send(receiver, type_, value, sender) {
-        if (type_ == "text") {
-            receiver.textBased.setChat(type_, value, sender);
-        }
-        else if (type_ == "video") {
-            receiver.videoBased.setChat(type_, value, sender);
-        }
-        else if (type_ == "image") {
-            receiver.imageBased.setChat(type_, value, sender);
-        }
-        else if (type_ == "audio") {
-            receiver.audioBased.setChat(type_, value, sender);
-        }
-    }
-}
-
-class Inbox extends SendMessege {
-    showInbox() {
-        if (this.textBased.type_ == "text" && this.textBased.type_ != null) {
-            this.textBased.getInbox();
-        }
-        if(this.audioBased.type_ == "audio" && this.audioBased.type_ != null){
-            this.audioBased.getInbox();
-        }
-        if(this.videoBased.type_ == "audio" && this.videoBased.type_ != null){
-            this.audioBased.getInbox();
-        }
-        if(this.imageBased.type_ == "audio" && this.imageBased.type_ != null){
-            this.imageBased.getInbox();
-        }
-    }
-}
-
-class CreateStatus extends Inbox {
+class CreateStatus extends Status {
     postStatus(statusType, status) {
-        if (statusType == "image") {
-            this.image.setStatus("image", status);
-        }
-        else if (statusType == "video") {
-            this.video.setStatus("video", status);
-        }
-        else if (statusType == "text") {
-            this.text.setStatus("text", status);
+        if (statusType === "image" || statusType === "video" || statusType === "text") {
+            this.setStatus(statusType, status);
         }
         else {
-            console.log(`Not supported`);
+            this.setStatus(`Unsupported`, "status");
         }
     }
 }
 
-class MyStatus extends CreateStatus {
+class DeleteStatus extends Status{
+    deleteStatus(){
+        while(this.storesStatus.length > 0){
+            this.storesStatus.pop();
+        }
+    }
+}
+
+class MyStatus extends Status {
     viewStatus() {
-        console.log(`\n${this.name}'s status`);
-        console.log("Image status: " + this.image.value);
-        console.log("Video status: " + this.video.value);
-        console.log("Text status: " + this.text.value);
+        if(this.storesStatus !== null){
+            for (const iterator of this.storesStatus) {
+                console.log(iterator);
+            }
+        }
+        else{
+            console.log("No status posted yet")
+        }
     }
 }
 
 class ViewStatus extends MyStatus {
-    viewAllStatus(contacts) {
+    viewAllStatus(...contacts) {
         for (let i = 0; i < contacts.length; i++) {
             contacts[i].viewStatus();
         }
     }
 }
 
-let contact = new MyStatus();
-contact.createUser("Rashed", 123456789);
-contact.aboutMe();
-contact.postStatus("text", "posted text status");
-contact.postStatus("video", "posted video status");
-contact.postStatus("image", "posted image");
+class Contacts {
+    constructor(name, phNumber) {
+        this.name=name;
+        this.phNumber=phNumber;
+        this.send = new SendMessege();
+        this.inbox = new showInbox();
+        this.status = new MyStatus();
+        this.deleteAllChat = new CleanInbox();
+        this.deleteStatus = new DeleteStatus();
+    }
 
-let contact1 = new MyStatus();
-contact1.createUser("Asif", 123456789);
-contact1.aboutMe();
-contact1.postStatus("text", "posted text status");
-contact1.postStatus("video", "posted video status");
-contact1.postStatus("image", "posted image");
+    aboutMe(){
+        console.log(`My name is ${this.name} phone no. is ${this.phNumber}`)
+    }
+}
 
-let allStatus = new ViewStatus();
-let cont = [contact,contact1];
-allStatus.viewAllStatus(cont);
+let rashed = new Contacts("Rashed",8250798974,)
 
-//Default first messege
-contact.send(contact1,"text", "hello", contact.name);
+let asif = new Contacts("Ashif",7894561230)
 
-console.log("\nAsif's Inbox")
-contact1.showInbox();
-contact1.send(contact, "text", "hi", contact1.name);
+rashed.send.messege(asif,"text","Hi I am rashed", rashed.name);
+rashed.send.messege(asif,"text","How are you?", rashed.name);
+rashed.status.setStatus("text", "Good morning everyone");
 
-console.log("\nRashed's Inbox");
-contact.showInbox();
+console.log("Ashif's Inbox - ")
+asif.inbox.getInbox();
+asif.deleteAllChat.deleteAllChat();
